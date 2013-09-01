@@ -12,10 +12,10 @@
 
 <% @beers.each do |beer| %>
   <tr>
-    <td><%= beer.name %></td>
+    <td><%= link_to beer.name, beer %></td>
     <td><%= beer.style %></td>
-    <td><%= beer.brewery_id %></td>
-    <td><%= link_to 'Show', beer %></td>
+    <td><%= link_to beer.brewery.name, brewery_path(beer.brewery_id) %></td>
+    
     <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
     <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -24,4 +24,9 @@
 
 <br />
 
-<%= link_to 'New Beer', new_beer_path %>
+<p>
+  <%= link_to 'New Beer', new_beer_path %>
+</p>
+<p>
+  <%= link_to 'List of Breweries', breweries_path %>
+</p>
