@@ -1,4 +1,5 @@
 class BreweriesController < ApplicationController
+  before_filter :authenticate, :only => [:new, :create, :destroy]
   # GET /breweries
   # GET /breweries.json
   def index
@@ -80,6 +81,12 @@ class BreweriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to breweries_url }
       format.json { head :no_content }
+    end
+  end
+  private
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "admin" and password == "secret"
     end
   end
 end
