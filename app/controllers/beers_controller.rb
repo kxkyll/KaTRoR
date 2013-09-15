@@ -25,6 +25,7 @@ class BeersController < ApplicationController
   # GET /beers/new.json
   def new
     @beer = Beer.new
+    @breweries = Brewery.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +45,7 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
+        format.html { redirect_to beers_path }
         format.json { render json: @beer, status: :created, location: @beer }
       else
         format.html { render action: "new" }
