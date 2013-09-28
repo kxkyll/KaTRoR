@@ -58,5 +58,7 @@ module Ratebeer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    # Now Rails loads modules from lib directory
+    config.autoload_paths += Dir["#{Rails.root}/lib"]
   end
 end
