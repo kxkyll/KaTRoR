@@ -1,5 +1,10 @@
 Ratebeer::Application.routes.draw do
 
+  resources :users
+  get 'signup', to: 'users#new'
+  get 'signin', to: 'sessions#new'
+  get 'signout', to: 'sessions#destroy'
+
   root :to => 'breweries#index'
 
   resources :beers
@@ -11,6 +16,8 @@ Ratebeer::Application.routes.draw do
   #post 'ratings', to: 'ratings#create'
 
   resources :ratings, :only => [:index, :new, :create, :destroy]
+
+  resources :sessions, :only => [:new, :create, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
