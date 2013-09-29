@@ -12,8 +12,8 @@
         <%=link_to 'beers', beers_path %>
         <%=link_to 'ratings', ratings_path %>
         <%=link_to 'users', users_path %>|
-        <% if not session[:user_id].nil? %>
-          <%= link_to User.find(session[:user_id]).username.titleize, User.find(session[:user_id]) %> 
+        <% if not current_user.nil? %>
+          <%= link_to current_user.username.titleize, current_user %> 
           <%=link_to 'rate a beer', new_rating_path %>
           <%=link_to 'signout', signout_path %>
         <% else %>
