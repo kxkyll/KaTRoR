@@ -13,8 +13,9 @@
   <tr>
     <td><%= link_to rating.beer.name, rating.beer.name %></td>
     <td><%= rating.score %></td>
-    
-    <td><%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if @user == current_user %>
+        <td><%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
@@ -30,6 +31,8 @@
 
 
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user == current_user %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>|
+<% end %>
 <%= link_to 'Back', users_path %>
