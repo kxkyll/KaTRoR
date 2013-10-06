@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :username
 
   has_many :ratings
+  has_many :beers, :through => :ratings
 
   def to_s
     "#{username}" 
