@@ -18,6 +18,15 @@
   </tr>
 <% end %>
 </table>
+<p> <% if @user.beer_clubs.empty? %> 
+        User is not a member of a beer club
+    <%else %>
+        User is a member of <%= pluralize(@user.beer_clubs.count, 'beer club')%>
+        <% @user.beer_clubs.each do |beer_club| %>
+            <li> <%= link_to beer_club, beer_club_path %>  </li>         
+        <% end %>
+    <% end %>
+</p>
 
 
 

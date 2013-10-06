@@ -1,0 +1,28 @@
+<p>
+  <b>Name:</b>
+  <%= @beer_club.name %>
+</p>
+
+<p>
+  <b>Founded:</b>
+  <%= @beer_club.founded %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @beer_club.city %>
+</p>
+
+<p> <% if @beer_club.users.empty? %> 
+        Club has not yet any members
+    <%else %>
+        Club has <%= pluralize(@beer_club.users.count, 'members')%>
+        <% @beer_club.users.each do |user| %>
+            <li> <%= link_to user, user_path %>  </li>         
+        <% end %>
+    <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
+<%= link_to 'Back', beer_clubs_path %>

@@ -1,5 +1,11 @@
 Ratebeer::Application.routes.draw do
 
+  resources :memberships
+
+
+  resources :beer_clubs
+
+
   resources :users
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
