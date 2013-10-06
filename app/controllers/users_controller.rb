@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
-    if @user.id == session[:user_id]
+    if currently_signed_in?(@user) #@user.id == session[:user_id]
       @user.destroy
       session[:user_id] = nil
     end
