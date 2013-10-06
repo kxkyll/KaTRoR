@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.id == session[:user_id]
       respond_to do |format|
-        if @user.update_attributes(params[:user])
+        if params[:user][:username].nil? and currently_signed_in?(@user) and @user.update_attributes(params[:user])
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
           format.json { head :no_content }
         else
