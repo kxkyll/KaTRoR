@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
     protect_from_forgery
 
     helper_method :current_user, :currently_signed_in?
+    
 
     def current_user
         return nil if session[:user_id].nil?

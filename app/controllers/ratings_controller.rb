@@ -16,11 +16,17 @@ class RatingsController <ApplicationController
     end
 
     def create
-        rating = Rating.create params[:rating]
-        current_user.ratings << rating
-
+        #rating = Rating.create params[:rating]
+        @rating = Rating.new params[:rating]
+        if @rating.save
+            current_user.ratings << @rating
+            redirect_to user_path current_user
+        else
+            @beers = Beer.all
+            render :new
+        end
         #session[:last_rating] = "#{Beer.find(params[:rating][:beer_id])} #{params[:rating][:score]} points"
-        redirect_to user_path current_user
+        
 
     end
 

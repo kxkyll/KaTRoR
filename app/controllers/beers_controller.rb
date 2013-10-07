@@ -46,7 +46,8 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(params[:beer])
-
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+    @breweries = Brewery.all
     respond_to do |format|
       if @beer.save
         format.html { redirect_to beers_path }
@@ -62,7 +63,8 @@ class BeersController < ApplicationController
   # PUT /beers/1.json
   def update
     @beer = Beer.find(params[:id])
-
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+    @breweries = Brewery.all
     respond_to do |format|
       if @beer.update_attributes(params[:beer])
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
