@@ -12,7 +12,7 @@ class Brewery < ActiveRecord::Base
                                         #:only_integer => true}
   
     
- 
+  validates_numericality_of :year,    {:only_integer => true}
   def year_must_be_between_1042_and_this_year
     if year.present? && year < 1042 || year.present? && year > Time.new.year
        errors.add(:year, "must be equal or between 1042 and this year")
