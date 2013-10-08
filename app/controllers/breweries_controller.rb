@@ -17,7 +17,7 @@ class BreweriesController < ApplicationController
   # GET /breweries/1.json
   def show
     @brewery = Brewery.find(params[:id])
-
+    @breweries = Brewery.all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @brewery }
@@ -28,6 +28,7 @@ class BreweriesController < ApplicationController
   # GET /breweries/new.json
   def new
     @brewery = Brewery.new
+    @breweries = Brewery.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,13 +39,14 @@ class BreweriesController < ApplicationController
   # GET /breweries/1/edit
   def edit
     @brewery = Brewery.find(params[:id])
+    @breweries = Brewery.all
   end
 
   # POST /breweries
   # POST /breweries.json
   def create
     @brewery = Brewery.new(params[:brewery])
-
+    @breweries = Brewery.all
     respond_to do |format|
       if @brewery.save
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
@@ -60,7 +62,7 @@ class BreweriesController < ApplicationController
   # PUT /breweries/1.json
   def update
     @brewery = Brewery.find(params[:id])
-
+    @breweries = Brewery.all
     respond_to do |format|
       if @brewery.update_attributes(params[:brewery])
         format.html { redirect_to @brewery, notice: 'Brewery was successfully updated.' }
