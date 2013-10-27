@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :beer_clubs, :through => :memberships
 
+  def favorite_beer
+    return nil if ratings.empty?
+    ratings.first.beer
+  end
+
   def to_s
     "#{username}" 
       
