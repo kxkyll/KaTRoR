@@ -1,6 +1,12 @@
 require 'spec_helper'
 
-def create_beer_with_rating (score,  user)
+def create_beers_with_ratings(*scores, user)
+    scores.each do |score|
+      create_beer_with_rating score, user
+    end
+end
+
+def create_beer_with_rating(score,  user)
     beer = FactoryGirl.create(:beer)
     FactoryGirl.create(:rating, :score => score,  :beer => beer, :user => user)
     beer
@@ -70,11 +76,22 @@ describe User do
         end
 
         it "is the one with highest rating if several rated" do
-            create_beer_with_rating 10, user
+            create_beers_with_ratings 10, 20, 15, 7, 9, user
             best = create_beer_with_rating 25, user
-            create_beer_with_rating 7, user
 
             expect(user.favorite_beer).to eq(best)
+        end
+    end
+    describe "favorite style" do
+        let(:user){FactoryGirl.create(:user)}
+        it "has method of determining one" do
+            user.should respond_to :favorite_style
+        end
+    end
+    describe "favorite brewery" do
+        let(:user){FactoryGirl.create(:user)}
+        it "has method for determinining one" do
+            user.should respond_to :favorite_brewery
         end
     end
 end
