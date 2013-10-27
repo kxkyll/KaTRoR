@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+def create_beer_with_rating (score,  user)
+    beer = FactoryGirl.create(:beer)
+    FactoryGirl.create(:rating, :score => score,  :beer => beer, :user => user)
+    beer
+end
+
 describe User do
     it "has the username set correctly" do
         user = User.new :username => "Pekka"
@@ -61,6 +67,14 @@ describe User do
             beer = FactoryGirl.create(:beer)
             rating = FactoryGirl.create(:rating, :beer => beer, :user => user)
             expect(user.favorite_beer).to eq(beer)
+        end
+
+        it "is the one with highest rating if several rated" do
+            create_beer_with_rating 10, user
+            best = create_beer_with_rating 25, user
+            create_beer_with_rating 7, user
+
+            expect(user.favorite_beer).to eq(best)
         end
     end
 end
