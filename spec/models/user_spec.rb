@@ -7,12 +7,27 @@ describe User do
         user.username.should == "Pekka"
     end
 
-    it "is not saved without a proper password" do
+    it "without a proper password is not saved" do
         user = User.create :username => "Pekka"
 
         expect(user.valid?).to be(false)
         expect(User.count).to eq(0)
     end
+
+    it "with too short password is not saved" do
+        user = User.create :username => "Maija", :password => "se1", :password_confirmation => "se1"
+
+        expect(user.valid?).to be(false)
+        expect(User.count).to eq(0)
+    end
+
+    it "with a password containing only letters is not saved" do
+        user = User.create :username => "Maija", :password => "secret", :password_confirmation => "secret"
+
+        expect(user.valid?).to be(false)
+        expect(User.count).to eq(0)
+    end
+
     describe "with a proper password" do
         let(:user){ User.create :username => "Pekka", :password => "secret1", :password_confirmation => "secret1" }
         
