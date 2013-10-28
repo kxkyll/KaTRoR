@@ -1,16 +1,25 @@
 require 'spec_helper'
 
-def create_beers_with_ratings(*scores, user)
+def create_beers_with_ratings(*scores, user, style)
     scores.each do |score|
-      create_beer_with_rating score, user
+      create_beer_with_rating score, user, style
     end
 end
 
-def create_beer_with_rating(score,  user)
-    beer = FactoryGirl.create(:beer)
+def create_beer_with_rating(score,  user, style)
+    beer = create_beer_with_style(style)
     FactoryGirl.create(:rating, :score => score,  :beer => beer, :user => user)
     beer
 end
+
+def create_beer_with_style(style)
+    if style.nil?
+        FactoryGirl.create(:beer)
+    else
+        FactoryGirl.create(:beer, :style => style)
+    end
+end
+
 
 describe User do
     it "has the username set correctly" do
@@ -76,8 +85,8 @@ describe User do
         end
 
         it "is the one with highest rating if several rated" do
-            create_beers_with_ratings 10, 20, 15, 7, 9, user
-            best = create_beer_with_rating 25, user
+            create_beers_with_ratings 10, 20, 15, 7, 9, user, nil
+            best = create_beer_with_rating 25, user, nil
 
             expect(user.favorite_beer).to eq(best)
         end
@@ -86,6 +95,23 @@ describe User do
         let(:user){FactoryGirl.create(:user)}
         it "has method of determining one" do
             user.should respond_to :favorite_style
+        end
+
+        it "without ratings does not have one" do
+           expect(user.favorite_style).to eq(nil) 
+        end
+
+        it "is the only style if one rating" do
+            best = create_beer_with_rating 23, user, nil
+            expect(user.favorite_style).to eq(best.style)
+        end
+
+        it "is the one rated highest on average" do
+            best = create_beer_with_style("Bock")
+            create_beers_with_ratings 22, 25, 15, 23, user, "Bock"
+            create_beers_with_ratings 10, 9, 15, 7, 9, user, "Lager"
+
+            expect(user.favorite_style).to eq(best.style)
         end
     end
     describe "favorite brewery" do
