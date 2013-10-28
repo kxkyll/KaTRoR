@@ -13,8 +13,8 @@
 <table>
     <% @user.ratings.each do |rating| %>
   <tr>
-    <td><%= link_to rating.beer.name, rating.beer.name %></td>
-    <td><%= rating.score %></td>
+    <td><%= link_to rating.beer.name, rating.beer %></td>
+    
     <% if @user == current_user %>
         <td><%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
