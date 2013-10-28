@@ -5,7 +5,8 @@
         has not yet given any ratings
     <%else %>
         <b> has given <%= pluralize(@user.ratings.count, 'rating')%>, average <%=@user.average_rating%> </b></br>
-        <b> favorite style <%= @user.favorite_style %> </b>
+        <b> favorite style <%= @user.favorite_style %> </b></br>
+        <b> favorite brewery <%= @user.favorite_brewery %> </b>
     <% end %>
 </p>
 

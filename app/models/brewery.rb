@@ -18,5 +18,9 @@ class Brewery < ActiveRecord::Base
        errors.add(:year, "must be equal or between 1042 and this year")
     end
   end
+
+  def to_s
+    return "#{name}"
+  end
   
 end

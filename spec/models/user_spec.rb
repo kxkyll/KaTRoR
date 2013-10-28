@@ -13,17 +13,17 @@ def create_beer_with_rating(score,  user, style, brewery)
 end
 
 def create_beer_with_style(style, brewery)
-    unless style.nil? and brewery.nil?
-        FactoryGirl.create(:beer, :style => style, :brewery => brewery)
+    if style and brewery
+        return FactoryGirl.create(:beer, :style => style, :brewery => brewery)
     end
     if style.nil? and brewery.nil?
-        FactoryGirl.create(:beer)
+        return FactoryGirl.create(:beer)
     end
     if style.nil? 
-        FactoryGirl.create(:beer, :brewery => brewery)
+        return FactoryGirl.create(:beer, :brewery => brewery)
     end
     if brewery.nil?
-        FactoryGirl.create(:beer, :style => style)
+        return FactoryGirl.create(:beer, :style => style)
     end
 end
 
@@ -92,8 +92,8 @@ describe User do
         end
 
         it "is the one with highest rating if several rated" do
-            create_beers_with_ratings 10, 20, 15, 7, 9, user, nil, nil
-            best = create_beer_with_rating 25, user, nil, nil
+            create_beers_with_ratings 10, 20, 15, 7, 9, user, "Bock", nil
+            best = create_beer_with_rating 25, user, "Lager", nil
 
             expect(user.favorite_beer).to eq(best)
         end
@@ -109,7 +109,7 @@ describe User do
         end
 
         it "is the only style if one rating" do
-            best = create_beer_with_rating 23, user, nil, nil
+            best = create_beer_with_rating 23, user, "Pale ALE", nil
             expect(user.favorite_style).to eq(best.style)
         end
 
@@ -140,7 +140,7 @@ describe User do
         it "is the brewery rated highest on average" do
             
             bestBrewery = FactoryGirl.create(:brewery, :name => "Home", :year => 2011)
-            notSoGood = FactoryGirl.create(:brewery, :name => "Home", :year => 2011)
+            notSoGood = FactoryGirl.create(:brewery, :name => "Other", :year => 2010)
             create_beers_with_ratings 22, 25, 15, 23, user, "Bock", bestBrewery
             create_beers_with_ratings 10, 9, 15, 7, 9, user, "Lager", notSoGood
 
