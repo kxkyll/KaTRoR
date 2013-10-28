@@ -4,7 +4,8 @@
 <p> <% if @user.ratings.empty? %> 
         has not yet given any ratings
     <%else %>
-        has given <%= pluralize(@user.ratings.count, 'rating')%>, average <%=@user.average_rating%>
+        <b> has given <%= pluralize(@user.ratings.count, 'rating')%>, average <%=@user.average_rating%> </b></br>
+        <b> favorite style <%= @user.favorite_style %> </b>
     <% end %>
 </p>
 
