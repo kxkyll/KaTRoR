@@ -7,40 +7,32 @@ describe "Breweries page" do
         expect(page).to have_content 'Number of breweries: 0'
     end
 
-    it "lists the existing breweries and their total number" do
-      breweries = ["Koff", "Karjala", "Schlenkerla"]
-      breweries.each do |brewery|
-        FactoryGirl.create(:brewery, :name => brewery)
-      end
+    describe "when breweries exists" do 
+        before :each do 
+            @breweries = ["Koff", "Karjala", "Schlenkerla"]    
+            year = 1896
+            @breweries.each do |brewery|
+                FactoryGirl.create(:brewery, :name => brewery, :year => year += 1)
+                
+            end
+            visit breweries_path
+        end
 
-      visit breweries_path
-      #prints the current page html, useful when detecting why test is not passing
-      #puts page.html
+        it "lists the existing breweries and their total number" do
+          
+          expect(page).to have_content "Number of breweries: #{@breweries.count}"
 
-      #opens page in default browser
-      #save_and_open_page
+          @breweries.each do |brewery|
+            expect(page).to have_content brewery
+          end
+        end
 
-      expect(page).to have_content "Number of breweries: #{breweries.count}"
+        it "allows user to navigate to page of a Brewery" do
 
-      breweries.each do |brewery|
-        expect(page).to have_content brewery
-      end
-    end
+          click_link "Koff"
 
-    it "allows user to navigate to page of a Brewery" do
-      breweries = ["Koff", "Karjala", "Schlenkerla"]
-      year = 1896
-      breweries.each do |brewery|
-          FactoryGirl.create(:brewery, :name => brewery, :year => year += 1)
-      end
-
-      visit breweries_path
-
-      #save_and_open_page
-
-      click_link "Koff"
-
-      expect(page).to have_content "Koff"
-      expect(page).to have_content "Established year 1897"
+          expect(page).to have_content "Koff"
+          expect(page).to have_content "Established year 1897"
+        end
     end
 end
