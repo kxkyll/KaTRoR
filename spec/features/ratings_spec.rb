@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 describe "Rating" do
+    include OwnTestHelper
   let!(:brewery) { FactoryGirl.create :brewery, :name => "Koff" }
   let!(:beer1) { FactoryGirl.create :beer, :name => "iso 3", :brewery => brewery }
   let!(:beer2) { FactoryGirl.create :beer, :name => "Karhu", :brewery => brewery }
   let!(:user) { FactoryGirl.create :user }
 
   before :each do
-    visit signin_path
-    fill_in('username', :with => 'Pekka')
-    fill_in('password', :with => 'foobar1')
-    click_button('Log in')
+    sign_in 'Pekka', 'foobar1'
   end
 
   it "when given, is registered to the beer and user who is signed in" do

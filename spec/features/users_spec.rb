@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "User" do 
+    include OwnTestHelper
+
     before :each do 
         FactoryGirl.create :user
         
@@ -9,14 +11,19 @@ describe "User" do
     describe "who has signed up" do
         it "can sign in with right credentials" do 
             visit signin_path
-            fill_in('username', :with => 'Pekka')
-            fill_in('password', :with => 'foobar1')
-            click_button ('Log in')
+            sign_in 'Pekka', 'foobar1'
 
-    
             expect(page).to have_content 'Welcome back'
             expect(page).to have_content 'Pekka'
                 
+        end
+
+        it "is redirected back to sign in form if wrong credentials given" do
+            visit signin_path
+            sign_in 'Pekka', 'wrong'    
+
+            expect(current_path).to eq(signin_path)
+            expect(page).to have_content 'Username and password do not match'
         end
         
     end
