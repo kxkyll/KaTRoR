@@ -26,7 +26,7 @@ class BeersController < ApplicationController
   def new
     @beer = Beer.new
     @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Doppelbock"]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,7 +38,7 @@ class BeersController < ApplicationController
   def edit
     @beer = Beer.find(params[:id])
     @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale Ale", "IPA", "Porter"]
+    @styles = ["Weizen", "Lager", "Pale Ale", "IPA", "Porter", "Doppelbock"]
 
   end
 
@@ -46,7 +46,7 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(params[:beer])
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Doppelbock"]
     @breweries = Brewery.all
     respond_to do |format|
       if @beer.save
@@ -63,7 +63,7 @@ class BeersController < ApplicationController
   # PUT /beers/1.json
   def update
     @beer = Beer.find(params[:id])
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Doppelbock"]
     @breweries = Brewery.all
     respond_to do |format|
       if @beer.update_attributes(params[:beer])
