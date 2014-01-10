@@ -12,13 +12,15 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 group :development, :test do
     gem 'sqlite3'
     gem 'rspec-rails', '~> 2.0'
+    gem "multi_json", "~> 1.7.9"
 end
 
 group :test do
     gem 'factory_girl_rails'
     gem 'capybara'
     gem 'launchy'
-    gem 'selenium-webdriver'
+    #gem 'selenium-webdriver'
+    gem 'simplecov', :require => false
 end
 
 
