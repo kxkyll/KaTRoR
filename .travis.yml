@@ -10,7 +10,7 @@ script:
 - bundle exec rspec -f d spec/
 deploy:
   provider: heroku
-  app: oma-kxror-14
+  app: serene-wildwood-3754
   api_key:
     secure: fOX1K458bUbuCVBxtv8yl1Bve7dtyUySA3fpZOh2K+LroMVLfpP7+H0lqKI6DxU9ZAI8WARlICdipChmDu55a7TUf0cr41PcEI8SVD4la8Z4xzoNaWsYBKlEM55aPG0J+2a95irfeAiLpvaPm2hMehiVgIaVh5hXJZl3ZrCWxYs=
   run: "rake db:migrate"
