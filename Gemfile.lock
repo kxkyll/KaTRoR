@@ -156,7 +156,6 @@ DEPENDENCIES
   factory_girl_rails
   jquery-rails
   launchy
-  multi_json (~> 1.7.9)
   pg
   rails (= 3.2.14)
   rails_stdout_logging
